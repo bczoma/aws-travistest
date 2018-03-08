@@ -25,7 +25,7 @@ script:
   - aws s3 sync . s3://sol-cf-quickstart-travistest/solace/vmr/latest --acl public-read
   - aws cloudformation create-stack --stack-name vmr-ha-travistest --template-body file://templates/solace-vmr-master.template --parameters file://ci/solace-aws-ha-3az-prod-travistest.json --on-failure DELETE --capabilities CAPABILITY_IAM
   - echo "Waiting for stack create complete"
-  - until aws cloudformation describe-stacks --stack-name vmr-ha-travistest | grep -m 1 -E 'CREATE_COMPLETE|DELETE_IN_PROGRESS"; do sleep 10; done
+  - until aws cloudformation describe-stacks --stack-name vmr-ha-travistest | grep -m 1 -E 'CREATE_COMPLETE|DELETE_IN_PROGRESS'; do sleep 10; done
   - url="$(aws elb describe-load-balancers | grep DNSName | grep vmr-ha-travis | awk -F '"' '{print $4}')"
   - curl -O https://sftp.solace.com/download/SDKPERF_C_LINUX64
   - tar -xvf SDKPERF_C_LINUX64
