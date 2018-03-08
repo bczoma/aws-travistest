@@ -6,8 +6,6 @@ git:
 env:
   global:
   - AWS_DEFAULT_REGION=eu-west-1
-  - secure: somestring
-  - secure: somestring
   
 before_install:
   - echo "Installing AWS CLI"
@@ -18,6 +16,7 @@ before_install:
 install: true
 
 script:
+  - env
   - aws cloudformation validate-template --template-body file://templates/solace-vmr-master.template
   - aws cloudformation validate-template --template-body file://templates/solace-vmr.template
   - aws cloudformation validate-template --template-body file://templates/nodecreate.template
