@@ -53,6 +53,6 @@
     },
     {
         "ParameterKey": "QSS3BucketName",
-        "ParameterValue": "solace-cf-quickstart-travistest"
+        "ParameterValue": "sol-cf-quickstart-travistest"
     }
 ]
