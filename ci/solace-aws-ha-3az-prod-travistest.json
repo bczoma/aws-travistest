@@ -17,7 +17,7 @@
     },
     {
         "ParameterKey": "AvailabilityZones",
-        "ParameterValue": "us-west-2a,us-west-2b,us-west-2c" 
+        "ParameterValue": "eu-central-1a,eu-central-1b,eu-central-1c" 
     },
     {
         "ParameterKey": "CreatePrivateSubnets",
