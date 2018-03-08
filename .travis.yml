@@ -27,7 +27,7 @@ script:
   - aws cloudformation create-stack --stack-name vmr-ha-travistest --template-body file://templates/solace-vmr-master.template --parameters file://ci/solace-aws-ha-3az-prod-travistest.json --on-failure DELETE --capabilities CAPABILITY_IAM
   - echo "Waiting for stack create complete"
   - until aws cloudformation describe-stacks --stack-name vmr-ha-travistest | grep -m 1 "CREATE_COMPLETE"; do sleep 10; done
-  - url="$(aws elb describe-load-balancers | grep '"DNSName": "vmr-ha-travis' | awk -F '"' '{print $4}')"
+  - url="$(aws elb describe-load-balancers | grep 'DNSName": "vmr-ha-travis' | awk -F '"' '{print $4}')"
   - curl -O https://sftp.solace.com/download/SDKPERF_C_LINUX64
   - tar -xvf SDKPERF_C_LINUX64
   - pubSubTools/sdkperf_c -cip=$url -mn=100000 -mr=0 -ptl=t1 -stl=t1 | grep "Total Messages"
