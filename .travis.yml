@@ -21,8 +21,8 @@ script:
   - aws cloudformation validate-template --template-body file://templates/nodecreate.template
   - yaml-lint -n templates/
   - sed -i "s@SolaceDockerURLParameterValue@$SOLACE_DOCKER_URL_PARAMETER_VALUE@g" ci/solace-aws-ha-3az-prod-travistest.json
-  - aws s3 mb s3://sol-cf-quickstart-travistest || echo "s3 bucket already existed"
-  - aws s3 sync . s3://sol-cf-quickstart-travistest/solace/vmr/latest --acl public-read
+  - aws s3 mb s3://solace-cf-quickstart-travistest || echo "s3 bucket already existed"
+  - aws s3 sync . s3://solace-cf-quickstart-travistest/solace/vmr/latest --acl public-read
   - aws cloudformation create-stack --stack-name vmr-ha-travistest --template-body file://templates/solace-vmr-master.template --parameters file://ci/solace-aws-ha-3az-prod-travistest.json --on-failure DELETE --capabilities CAPABILITY_IAM
   - echo "Waiting for stack create complete"
   - "travis_wait 30 sleep 1800 &"
@@ -40,7 +40,7 @@ after_success:
   - echo "Messaging tested"
 
 after_script:
-  - aws s3 rb s3://sol-cf-quickstart-travistest --force
+  - aws s3 rb s3://solace-cf-quickstart-travistest --force
   - aws cloudformation delete-stack --stack-name vmr-ha-travistest
   - echo "Waiting for stack delete complete"
   - stackid="$(aws cloudformation describe-stacks --stack-name vmr-ha-travistest | grep StackId | awk -F '"' '{print $4}')"
